@@ -27,7 +27,6 @@ class CoopFragment : DaggerFragment() {
             binding = it
         }.root
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(CoopViewModel::class.java)
@@ -37,6 +36,7 @@ class CoopFragment : DaggerFragment() {
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
         viewModel.coopResponse.observe(this, Observer<CoopResponse> {
             Timber.d("Observer onChanged")
             it ?: return@Observer

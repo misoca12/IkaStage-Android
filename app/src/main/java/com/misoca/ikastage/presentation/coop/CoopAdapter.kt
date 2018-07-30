@@ -20,10 +20,6 @@ class CoopAdapter: RecyclerView.Adapter<CoopAdapter.ViewHolder>() {
         holder.binding.coop = items[position]
     }
 
-    override fun onBindViewHolder(holder: CoopAdapter.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        super.onBindViewHolder(holder, position, payloads)
-    }
-
     override fun getItemCount() = items.size
 
     inner class ViewHolder(val binding: CoopAdapterItemBinding) : RecyclerView.ViewHolder(binding.root)

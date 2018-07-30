@@ -1,8 +1,6 @@
 package com.misoca.ikastage.di
 
 import com.misoca.ikastage.data.api.Spla2Api
-import com.misoca.ikastage.data.model.Coop
-import com.misoca.ikastage.data.model.CoopResponse
 import com.misoca.ikastage.data.repository.CoopRepository
 import com.misoca.ikastage.presentation.IkaStageApp
 import com.squareup.moshi.Moshi
@@ -17,13 +15,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import com.squareup.moshi.ToJson
-import com.squareup.moshi.JsonDataException
-import com.squareup.moshi.FromJson
-
-
-
-
 
 @Module
 class ApiModule {

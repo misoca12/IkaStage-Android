@@ -78,6 +78,9 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:${versions.aac}"
     kapt "android.arch.lifecycle:compiler:${versions.aac}"
 
+    // Glide
+    implementation "com.github.bumptech.glide:glide:${versions.glide}"
+
     // Hawk
     implementation "com.orhanobut:hawk:${versions.hawk}"
 
@@ -85,6 +88,4 @@ dependencies {
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
