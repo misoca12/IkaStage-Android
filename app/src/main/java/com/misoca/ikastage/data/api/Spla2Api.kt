@@ -2,7 +2,6 @@ package com.misoca.ikastage.data.api
 
 import com.misoca.ikastage.data.model.CoopResponse
 import io.reactivex.Flowable
-import io.reactivex.Single
 import retrofit2.http.*
 
 interface Spla2Api {

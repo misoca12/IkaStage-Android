@@ -32,7 +32,6 @@ class ApiModule {
     @Singleton
     internal fun provideMoshi(): Moshi {
         return Moshi.Builder()
-                .add(CoopAdapter())
                 .add(KotlinJsonAdapterFactory())
                 .build()
     }
@@ -64,17 +63,6 @@ class ApiModule {
     @Singleton
     fun provideSpla2Api(retrofit: Retrofit): Spla2Api {
         return retrofit.create(Spla2Api::class.java)
-    }
-
-    class CoopAdapter {
-        @ToJson
-        fun toJson(response: CoopResponse): List<Coop>? {
-            return response.result
-        }
-        @FromJson
-        fun fromJson(response: CoopResponse): List<Coop>? {
-            return response.result
-        }
     }
 
 }

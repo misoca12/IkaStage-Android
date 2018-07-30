@@ -4,15 +4,16 @@
     >
     <data>
         <import type="android.view.View"/>
-        <variable name="viewModel" type="com.misoca.ikastage.presentation.coop.CoopItemViewModel"/>
+        <variable name="coop" type="com.misoca.ikastage.data.model.Coop"/>
     </data>
-    <FrameLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="@{coop.period}"
             />
-    </FrameLayout>
+    </android.support.v7.widget.CardView>
 </layout>

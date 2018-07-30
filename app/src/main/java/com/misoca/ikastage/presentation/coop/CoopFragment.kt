@@ -30,9 +30,11 @@ class CoopFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.setLifecycleOwner(this)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(CoopViewModel::class.java)
+
+        binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
+
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         viewModel.coopResponse.observe(this, Observer<CoopResponse> {

@@ -73,8 +73,6 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
 
     // Android Architecture Component
-//    implementation "android.arch.lifecycle:viewmodel:${versions.aac}"
-//    implementation "android.arch.lifecycle:livedata:${versions.aac}"
     implementation "android.arch.lifecycle:runtime:${versions.aac}"
     implementation "android.arch.lifecycle:extensions:${versions.aac}"
     implementation "android.arch.lifecycle:reactivestreams:${versions.aac}"

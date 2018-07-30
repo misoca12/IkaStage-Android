@@ -17,9 +17,7 @@ class CoopAdapter: RecyclerView.Adapter<CoopAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CoopAdapter.ViewHolder, position: Int) {
-//        val business = businesses.businesses!![position]
-//        holder.binding.setVariable(BR.viewModel, BusinessesItemViewModel(business))
-//        holder.binding.executePendingBindings()
+        holder.binding.coop = items[position]
     }
 
     override fun onBindViewHolder(holder: CoopAdapter.ViewHolder, position: Int, payloads: MutableList<Any>) {

@@ -1,6 +1,9 @@
 package com.misoca.ikastage.data.model
 
+import android.support.annotation.IntegerRes
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class Coop(
         val start: String,
@@ -11,4 +14,13 @@ data class Coop(
         val end_t: String,
         val stage: Stage?,
         val weapons: List<Weapon>?
-): Serializable
+): Serializable {
+
+    val period
+      get(): String {
+          val formatter = SimpleDateFormat("HH:mm")
+          return formatter.format(start_t.toLong() * 1000) + " - " + formatter.format(end_t.toLong() * 1000)
+      }
+
+}
+

@@ -1,7 +1,6 @@
 package com.misoca.ikastage.presentation.coop
 
 import android.arch.lifecycle.*
-import com.misoca.ikastage.data.model.Coop
 import com.misoca.ikastage.data.model.CoopResponse
 import com.misoca.ikastage.data.repository.CoopRepository
 import com.misoca.ikastage.util.extention.toLiveData
@@ -12,10 +11,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class CoopViewModel @Inject constructor(private val repository: CoopRepository): ViewModel(), LifecycleObserver {
+
     val coopResponse: LiveData<CoopResponse>
+
     init {
         coopResponse = repository.loadCoop()
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(Flowable.empty())
                 .toLiveData() // FlowableをLiveDataに変換する
