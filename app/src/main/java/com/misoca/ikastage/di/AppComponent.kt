@@ -15,6 +15,7 @@ import dagger.android.support.AndroidSupportInjectionModule
     AndroidSupportInjectionModule::class,
     AppModule::class,
     ApiModule::class,
+    ViewModelModule::class,
     MainActivityBuilder::class
 ])
 interface AppComponent : AndroidInjector<IkaStageApp> {

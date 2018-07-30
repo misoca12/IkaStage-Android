@@ -1,30 +1,44 @@
 package com.misoca.ikastage.presentation.coop
 
-import android.databinding.BaseObservable
+import android.arch.lifecycle.*
 import com.misoca.ikastage.data.model.Coop
 import com.misoca.ikastage.data.model.CoopResponse
 import com.misoca.ikastage.data.repository.CoopRepository
-import io.reactivex.Observer
+import com.misoca.ikastage.util.extention.toLiveData
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class CoopViewModel @Inject constructor(private val repository: CoopRepository): BaseObservable() {
-    val adapter: CoopAdapter? = null
-    fun loadCoop() {
-        repository.loadCoop()
+class CoopViewModel @Inject constructor(private val repository: CoopRepository): ViewModel(), LifecycleObserver {
+    val coopResponse: LiveData<CoopResponse>
+    init {
+        coopResponse = repository.loadCoop()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({
-                    Timber.d("loadCoop -> onSuccess")
-                    if (it.result is List<Coop>) {
-                        Timber.d("coop " + it.result.size)
-                    }
-                },{
-                    Timber.e("loadCoop -> onError")
-                    Timber.e(it)
-                })
+                .onErrorResumeNext(Flowable.empty())
+                .toLiveData() // FlowableをLiveDataに変換する
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        Timber.d("CoopViewModel onCreate")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onStart() {
+        Timber.d("CoopViewModel onStart")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        Timber.d("CoopViewModel onResume")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
+        Timber.d("CoopViewModel onPause")
+    }
+
 }

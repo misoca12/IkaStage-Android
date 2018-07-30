@@ -1,8 +1,12 @@
 package com.misoca.ikastage.di
 
 import com.misoca.ikastage.data.api.Spla2Api
+import com.misoca.ikastage.data.model.Coop
+import com.misoca.ikastage.data.model.CoopResponse
 import com.misoca.ikastage.data.repository.CoopRepository
+import com.misoca.ikastage.presentation.IkaStageApp
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 import javax.inject.Singleton
 
@@ -13,6 +17,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import com.squareup.moshi.ToJson
+import com.squareup.moshi.JsonDataException
+import com.squareup.moshi.FromJson
+
+
+
+
 
 @Module
 class ApiModule {
@@ -20,7 +31,10 @@ class ApiModule {
     @Provides
     @Singleton
     internal fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
+        return Moshi.Builder()
+                .add(CoopAdapter())
+                .add(KotlinJsonAdapterFactory())
+                .build()
     }
 
     @Provides
@@ -44,12 +58,23 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideCoopRepository(api: Spla2Api): CoopRepository = CoopRepository(api)
+    fun provideCoopRepository(api: Spla2Api, app: IkaStageApp): CoopRepository = CoopRepository(api, app)
 
     @Provides
     @Singleton
     fun provideSpla2Api(retrofit: Retrofit): Spla2Api {
         return retrofit.create(Spla2Api::class.java)
+    }
+
+    class CoopAdapter {
+        @ToJson
+        fun toJson(response: CoopResponse): List<Coop>? {
+            return response.result
+        }
+        @FromJson
+        fun fromJson(response: CoopResponse): List<Coop>? {
+            return response.result
+        }
     }
 
 }
