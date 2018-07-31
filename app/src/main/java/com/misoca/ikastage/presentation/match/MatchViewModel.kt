@@ -1,7 +1,7 @@
-package com.misoca.ikastage.presentation.coop
+package com.misoca.ikastage.presentation.match
 
 import android.arch.lifecycle.*
-import com.misoca.ikastage.data.model.CoopResponse
+import com.misoca.ikastage.data.model.MatchResponse
 import com.misoca.ikastage.data.repository.Spla2Repository
 import com.misoca.ikastage.util.extention.toLiveData
 import io.reactivex.Flowable
@@ -10,17 +10,16 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class CoopViewModel @Inject constructor(private val repository: Spla2Repository): ViewModel(), LifecycleObserver {
+class MatchViewModel @Inject constructor(private val repository: Spla2Repository): ViewModel(), LifecycleObserver {
 
-    val coopResponse: LiveData<CoopResponse>
-
-    init {
-        coopResponse = repository.loadCoop()
+    val match = MutableLiveData<String>()
+    val matchResponse: LiveData<MatchResponse> = Transformations.switchMap(match, {
+        repository.loadMatch(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(Flowable.empty())
                 .toLiveData() // FlowableをLiveDataに変換する
-    }
+    })
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {

@@ -1,7 +1,7 @@
 package com.misoca.ikastage.di
 
 import com.misoca.ikastage.data.api.Spla2Api
-import com.misoca.ikastage.data.repository.CoopRepository
+import com.misoca.ikastage.data.repository.Spla2Repository
 import com.misoca.ikastage.presentation.IkaStageApp
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -48,7 +48,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideCoopRepository(api: Spla2Api, app: IkaStageApp): CoopRepository = CoopRepository(api, app)
+    fun provideCoopRepository(api: Spla2Api, app: IkaStageApp): Spla2Repository = Spla2Repository(api, app)
 
     @Provides
     @Singleton
