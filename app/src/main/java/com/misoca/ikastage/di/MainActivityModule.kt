@@ -6,6 +6,8 @@ import com.misoca.ikastage.presentation.MainActivity
 import com.misoca.ikastage.presentation.coop.CoopFragment
 import com.misoca.ikastage.presentation.coop.CoopViewModel
 import com.misoca.ikastage.presentation.match.MatchFragment
+import com.misoca.ikastage.presentation.match.MatchPagerAdapter
+import com.misoca.ikastage.presentation.match.MatchPagerFragment
 import com.misoca.ikastage.presentation.match.MatchViewModel
 import dagger.Binds
 import dagger.Module
@@ -24,7 +26,8 @@ import dagger.multibindings.IntoMap
     @ViewModelKey(MatchViewModel::class)
     abstract fun bindMatchViewModel(viewModel: MatchViewModel): ViewModel
 
-    @ContributesAndroidInjector fun contributeCoopFragment(): CoopFragment
+    @ContributesAndroidInjector fun contributeMatchPagerFragment(): MatchPagerFragment
     @ContributesAndroidInjector fun contributeMatchFragment(): MatchFragment
+    @ContributesAndroidInjector fun contributeCoopFragment(): CoopFragment
 
 }

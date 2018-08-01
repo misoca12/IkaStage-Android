@@ -10,35 +10,17 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class MatchViewModel @Inject constructor(private val repository: Spla2Repository): ViewModel(), LifecycleObserver {
+class MatchViewModel @Inject constructor(private val repository: Spla2Repository): ViewModel() {
 
     val match = MutableLiveData<String>()
+    // matchの変更を検出してMatchAPIをコールする
     val matchResponse: LiveData<MatchResponse> = Transformations.switchMap(match, {
+        // リポジトリからMatch情報を取得
         repository.loadMatch(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(Flowable.empty())
                 .toLiveData() // FlowableをLiveDataに変換する
     })
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
-        Timber.d("CoopViewModel onCreate")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        Timber.d("CoopViewModel onStart")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        Timber.d("CoopViewModel onResume")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        Timber.d("CoopViewModel onPause")
-    }
 
 }

@@ -10,36 +10,17 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class CoopViewModel @Inject constructor(private val repository: Spla2Repository): ViewModel(), LifecycleObserver {
+class CoopViewModel @Inject constructor(private val repository: Spla2Repository): ViewModel() {
 
     val coopResponse: LiveData<CoopResponse>
 
     init {
+        // リポジトリからCoop情報を取得
         coopResponse = repository.loadCoop()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(Flowable.empty())
                 .toLiveData() // FlowableをLiveDataに変換する
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
-        Timber.d("CoopViewModel onCreate")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        Timber.d("CoopViewModel onStart")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        Timber.d("CoopViewModel onResume")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        Timber.d("CoopViewModel onPause")
     }
 
 }

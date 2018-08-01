@@ -48,7 +48,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideCoopRepository(api: Spla2Api, app: IkaStageApp): Spla2Repository = Spla2Repository(api, app)
+    fun provideSpla2Repository(api: Spla2Api, app: IkaStageApp): Spla2Repository = Spla2Repository(api, app)
 
     @Provides
     @Singleton

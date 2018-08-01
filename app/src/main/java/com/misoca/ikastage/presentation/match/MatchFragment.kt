@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
-import com.misoca.ikastage.data.model.CoopResponse
 import com.misoca.ikastage.data.model.MatchResponse
 
-import com.misoca.ikastage.databinding.CoopFragmentBinding
 import com.misoca.ikastage.databinding.MatchFragmentBinding
 import dagger.android.support.DaggerFragment // Supportを入れないとv4のFragmentが使われない
 import timber.log.Timber
@@ -31,14 +29,19 @@ class MatchFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(MatchViewModel::class.java)
+        // ここでthisを渡すことでViewPager内の各Fragment毎にViewModelを生成する
+        // activityを渡した場合は同じViewPager内の各Fragmentは同じViewModelを参照する
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MatchViewModel::class.java)
 
+        // LiveData Setting
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
 
+        // RecyclerView Setting
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
+        // 画面に反映する
         viewModel.matchResponse.observe(this, Observer<MatchResponse> {
             Timber.d("Observer onChanged")
             it ?: return@Observer
@@ -49,11 +52,15 @@ class MatchFragment : DaggerFragment() {
                 notifyDataSetChanged()
             }
         })
-        viewModel.match.value = "regular"
+        viewModel.match.value = arguments?.getString("match")
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = MatchFragment()
+        fun newInstance(match: String) = MatchFragment().apply {
+            arguments = Bundle().apply {
+                putString("match", match)
+            }
+        }
     }
 }

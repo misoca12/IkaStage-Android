@@ -7,6 +7,7 @@ import com.misoca.ikastage.R
 import com.misoca.ikastage.databinding.MainActivityBinding
 import com.misoca.ikastage.presentation.coop.CoopFragment
 import com.misoca.ikastage.presentation.match.MatchFragment
+import com.misoca.ikastage.presentation.match.MatchPagerFragment
 import com.misoca.ikastage.util.extention.replaceFragment
 import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
@@ -17,7 +18,7 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject lateinit var app: IkaStageApp
 
     private lateinit var binding: MainActivityBinding
-    private val matchFragment = MatchFragment.newInstance()
+    private val matchPagerFragment = MatchPagerFragment.newInstance()
     private val coopFragment = CoopFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun showMatch() {
-        replaceFragment(R.id.content, matchFragment)
+        replaceFragment(R.id.content, matchPagerFragment)
     }
 
     private fun showCoop() {
