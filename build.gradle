@@ -15,7 +15,6 @@ buildscript {
             'dagger': '2.16',
             'rxjava': '2.1.16',
             'rxandroid': '2.0.2',
-            'rxkotlin': '2.2.0',
             'aac': '1.1.1',
             'glide': '4.7.1',
             'hawk': '2.0.1',
