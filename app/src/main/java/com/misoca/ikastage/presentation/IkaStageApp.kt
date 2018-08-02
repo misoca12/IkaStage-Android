@@ -5,7 +5,6 @@ import android.support.multidex.MultiDex
 import com.misoca.ikastage.BuildConfig
 import com.misoca.ikastage.di.DaggerAppComponent
 
-import com.orhanobut.hawk.Hawk
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -27,12 +26,7 @@ open class IkaStageApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        setupHawk()
         setupTimber()
-    }
-
-    private fun setupHawk() {
-        Hawk.init(this).build()
     }
 
     private fun setupTimber() {
